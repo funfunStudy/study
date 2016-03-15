@@ -17,4 +17,4 @@
 * 장소는 아직 미정(강남토즈-10번 출구 방향)
 
 ## 진행상황
-[wiki](https://github.com/funfunStudy/study/wiki/Fun-FunctionalPrograming-Study)
+[위키페이지](https://github.com/funfunStudy/study/wiki)
