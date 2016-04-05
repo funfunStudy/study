@@ -16,25 +16,32 @@ object Main {
 
   }
 
-    def fibonach(arr : List[Int], num : Int) : List[Int] = {
+  def fibonach(arr : List[Int], num : Int) : List[Int] = {
 
-      val preNum1 = arr(arr.length-2)
-      val preNum2 = arr(arr.length-1)
-      val result : List[Int] = arr ::: preNum1 + preNum2 :: Nil
+    val preNum1 = arr(arr.length-2)
+    val preNum2 = arr(arr.length-1)
+    val result : List[Int] = arr ::: preNum1 + preNum2 :: Nil
 
-      println(result)
+    println(result)
 
-      if(result.length == num)
-          result
-      else
-        fibonach(result, num)
-    }
+    if(result.length == num)
+        result
+    else
+      fibonach(result, num)
+  }
 
-//좋은 해답
+  //좋은 해답
   def fib1( n : Int) : Int = n match {
     case 0 | 1 => n
     case _ => fib1( n-1 ) + fib1( n-2 )
   }
 
-
+  /**
+   *
+   * int fibo(int num) {
+        if(num == 0) return 0;
+        else if(num == 1) return 1;
+        else return fibo(num-1) + fibo(num-2);
+     }
+   * /
 }
