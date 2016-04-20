@@ -16,5 +16,8 @@
 * 매주 화요일 (8시 ~ 10시 반)스터디를 기본으로 함.
 * 장소는 아직 미정(강남토즈-10번 출구 방향)
 
+## 스터디 신청 및 연락처
+* myeonginwoo@gmail.com
+
 ## 진행상황
 [위키페이지](https://github.com/funfunStudy/study/wiki)
