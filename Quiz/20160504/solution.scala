@@ -47,7 +47,12 @@ object solution3 {
     }
 
     println(map.filter(_._2 > 1).keys.mkString(" "))
-
-
   }
 }
+
+/**
+ * [23, 32, 3, 9 , 40] 원소의 값을 조합해서 가장 큰 정수를 리턴하시오.
+ * output : 94033223 
+ */
+
+
