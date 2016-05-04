@@ -1,3 +1,12 @@
+/**
+ * > soultion1 
+ * input : I am a boy
+ * output : boy a am I
+ * 
+ * > soultion2
+ * input : I am a boy
+ * output : yob a ma I
+ */
 object solution12 {
   def main(args: Array[String]): Unit = {
     val inputString = scala.io.StdIn.readLine
@@ -18,6 +27,11 @@ object solution12 {
   }
 }
 
+/**
+ * > 교집합 
+ * input : [A, B, C, D], [C, D, E, F]
+ * output : [C, D]
+ */
 object solution3 {
   def main(args: Array[String]) {
     val a = List("A", "B", "C", "D")
