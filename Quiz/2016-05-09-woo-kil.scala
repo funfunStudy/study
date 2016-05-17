@@ -11,7 +11,6 @@ object Main {
   def main(args: Array[String]) {
     val line = Source.fromFile("files/A-large-practice.in").getLines.toList
 
-    val num = line.head.toInt
     val inputs = line.tail
     var count = 1
 
@@ -59,7 +58,7 @@ object Main {
 
       val a = month % map.size
 
-      if(a != 0)
+        if(a != 0)
         sum += map(a-1)
     } else{
       sum = month*(days/weeks)
