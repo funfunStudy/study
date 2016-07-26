@@ -10,9 +10,9 @@ object main {
     val min = scala.io.StdIn.readLine().toInt
     val max = scala.io.StdIn.readLine().toInt
     println("================================")
-    println(">> min : " + min)
-    println(">> max : " + max)
-    println(">> result : " + getPrimes((2 to max).toList, min))
+    println(s">> min : $min")
+    println(s">> max : $max")
+    println(s">> result : ${getPrimes((2 to max).toList, min)}")
   }
 
   def getPrimes(sus: List[Int], min: Int): List[Int] = {
