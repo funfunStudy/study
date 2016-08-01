@@ -1,5 +1,3 @@
-import scala.reflect.internal.settings.MutableSettings
-
 object QuizDecimal {
 
   var primeList = List[Int]()
@@ -14,14 +12,11 @@ object QuizDecimal {
   }
 
   def getPrimes(sus: List[Int], min: Int): List[Int] = {
-    sus.filter(isPrime(_)).filter(min < _)
+    sus.filter(isPrime(_)).filter(min <= _)
   }
 
   def isPrime(su: Int): Boolean = {
-    if (su == 2) {
-      primeList = List(2)
-      true
-    } else if (primeList.find(su % _ == 0).size == 1) {
+    if (primeList.find(su % _ == 0).size == 1) {
       false
     } else {
       primeList = su +: primeList
