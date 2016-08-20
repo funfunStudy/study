@@ -1,4 +1,45 @@
-{
+object Main {
+  def main(args: Array[String]) {
+
+    val list = List(1, 2, 3, 4, 5)
+    val list2 = List(1.0, 2.0, 3.0, 4.0, 5.0)
+
+    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
+    println(s"tail : ${List.getTail(list)}")
+    println(s"head : ${List.setHead(9, list)}")
+    println(s"drop : ${List.drop(2, list)}")
+    println(s"dropWhile1 : ${List.dropWhile1(list, (x: Int) => x < 3)}")
+    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
+    println(s"init : ${List.init(list)}")
+    println(s"length : ${List.length(list)}")
+    println(s"sum2 : ${List.sum2(list)}")
+    println(s"sum3 : ${List.sum3(list)}")
+    println(s"product2 : ${List.product2(list2)}")
+    println(s"product3 : ${List.product3(list2)}")
+    println(s"plus1 : ${List.plus1(list)}")
+
+    println(s"map1 : ${List.map(list)((x:Int) => x+1)}")
+    println(s"map2 : ${List.map(list2)((x:Double) => x.toString)}")
+
+    println(s"filter : ${List.filter(list)((x:Int) => x %2 ==0)}")
+    println(s"foldRight : ${List.foldRight(List(1,2,3),List[Int]())(Cons(_,_))}")
+    println(s"foldLeft : ${List.foldLeft(List(1,2,3),List[Int]())(Cons(_,_))}")
+    println(s"foldRightViaLeft : ${List.foldRightViaLeft(List(1,2,3),List[Int]())(Cons(_,_))}")
+//    println(s"foldLeftViaRight : ${List.foldLeftViaRight(List(1,2,3),List[Int]())(Cons(_,_))}")
+  }
+
+  sealed trait List[+A]
+
+  // `List` data type, parameterized on a type, `A`
+  case object Nil extends List[Nothing]
+
+  // A `List` data constructor representing the empty list
+  /* Another data constructor, representing nonempty lists. Note that `tail` is another `List[A]`,
+  which may be `Nil` or another `Cons`.
+   */
+  case class Cons[+A](head: A, tail: List[A]) extends List[A]
+
+  object List {
     // `List` companion object. Contains functions for creating and working with lists.
     def sum(ints: List[Int]): Int = ints match {
       // A function that uses pattern matching to add up a list of integers
@@ -106,3 +147,6 @@
 //    def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
 //      foldRight(map(as)(f), List[B]())((listA, listB) => listA + listB)
   }
+
+
+}
