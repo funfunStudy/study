@@ -1,41 +1,4 @@
-object Main {
-  def main(args: Array[String]) {
-
-    val list = List(1, 2, 3, 4, 5)
-    val list2 = List(1.0, 2.0, 3.0, 4.0, 5.0)
-
-    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
-    println(s"tail : ${List.getTail(list)}")
-    println(s"head : ${List.setHead(9, list)}")
-    println(s"drop : ${List.drop(2, list)}")
-    println(s"dropWhile1 : ${List.dropWhile1(list, (x: Int) => x < 3)}")
-    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
-    println(s"init : ${List.init(list)}")
-    println(s"length : ${List.length(list)}")
-    println(s"sum2 : ${List.sum2(list)}")
-    println(s"sum3 : ${List.sum3(list)}")
-    println(s"product2 : ${List.product2(list2)}")
-    println(s"product3 : ${List.product3(list2)}")
-    println(s"plus1 : ${List.plus1(list)}")
-
-    println(s"map1 : ${List.map(list)((x:Int) => x+1)}")
-    println(s"map2 : ${List.map(list2)((x:Double) => x.toString)}")
-
-    println(s"filter : ${List.filter(list)((x:Int) => x %2 ==0)}")
-  }
-
-  sealed trait List[+A]
-
-  // `List` data type, parameterized on a type, `A`
-  case object Nil extends List[Nothing]
-
-  // A `List` data constructor representing the empty list
-  /* Another data constructor, representing nonempty lists. Note that `tail` is another `List[A]`,
-  which may be `Nil` or another `Cons`.
-   */
-  case class Cons[+A](head: A, tail: List[A]) extends List[A]
-
-  object List {
+{
     // `List` companion object. Contains functions for creating and working with lists.
     def sum(ints: List[Int]): Int = ints match {
       // A function that uses pattern matching to add up a list of integers
@@ -88,6 +51,12 @@ object Main {
       case Cons(x, xs) => f(x, foldRight(xs, z)(f))
     }
 
+    def foldRightViaFoldLeft[A, B](as: List[A], z: B)(f: (A, B) => B): B =
+      foldLeft(reverse(as), z)((b, a) => f(a,b))
+
+    def foldRightViaFoldLeft_1[A,B](l: List[A], z: B)(f: (A,B) => B): B =
+      foldLeft(l, (b:B) => b)((g,a) => b => g(f(a,b)))(z)
+
     def sum2(ns: List[Int]) =
       foldRight(ns, 0)((x, y) => x + y)
 
@@ -99,14 +68,20 @@ object Main {
 
     def foldLeft[A,B](as: List[A], z: B)(f: (B, A) => B): B = as match {
       case Nil => z
-      case Cons(x, xs) => f(foldLeft(xs, z)(f), x)
+      case Cons(x, xs) => foldLeft(xs, f(z, x))(f)
     }
+
+    def foldLeftViaFoldRight[A,B](as: List[A], z: B)(f: (B, A) => B): B =
+      foldRight(as, (b: B) => b)((a, g) => b => g(f(b, a)))(z)
 
     def sum3(ns: List[Int]) =
       foldLeft(ns, 0)((y, x) => x + y)
 
     def product3(ns: List[Double]) =
       foldLeft(ns, 1.0)(_ * _)
+
+    def reverse[A](ns: List[A]) =
+      foldLeft(ns, List[A]())((list, head) => Cons(head, list))
 
     def plus1(ns: List[Int]) : List[Int] = ns match {
       case Nil => Nil
@@ -128,10 +103,6 @@ object Main {
       case Cons(x, xs) => if(f(x)) Cons(x, filter(xs)(f)) else filter(xs)(f)
     }
 
-    def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
-      foldRight(map(as)(f), Nil)((x, y) => Cons(x, y))
+//    def flatMap[A,B](as: List[A])(f: A => List[B]): List[B] =
+//      foldRight(map(as)(f), List[B]())((listA, listB) => listA + listB)
   }
-
-
-}
-
