@@ -3,8 +3,8 @@ object Main {
 
     val list = List(1, 2, 3, 4, 5)
     val list2 = List(1.0, 2.0, 3.0, 4.0, 5.0)
+    val list3 = List(6, 7, 8, 9, 10)
 
-    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
     println(s"tail : ${List.getTail(list)}")
     println(s"head : ${List.setHead(9, list)}")
     println(s"drop : ${List.drop(2, list)}")
@@ -26,14 +26,29 @@ object Main {
     println(s"foldLeft : ${List.foldLeft(List[Int](), List(1, 2, 3))((x, y) => Cons(y, x))}")
     println(s"foldRightViaLeft : ${List.foldRightViaFoldLeft(List(1, 2, 3), List[Int]())(Cons(_, _))}")
     println(s"foldRightViaFoldLeft_1 : ${List.foldRightViaFoldLeft_1(List(1, 2, 3), List[Int]())(Cons(_, _))}")
-    //    println(s"foldLeftViaRight : ${List.foldLeftViaRight(List(1,2,3),List[Int]())(Cons(_,_))}")
     println(s"appendViaFoldRight : ${List.appendViaFoldRight(List(1, 2, 3), List(4, 5, 6))}")
-    println(s"appendViaFoldLeft : ${List.appendViaFoldLeft(List(1, 2, 3), List(4, 5, 6))}")
 
     println(s"plus1ViaFoldRight : ${List.plus1ViaFoldRight(list)}")
     println(s"plus1ViaFoldLeft : ${List.plus1ViaFoldLeft(list)}")
 
-    println(s"floatMap : ${List.flatMap(list)(x => Cons(x,Cons(x, Nil)))}")
+    println(s"floatMap : ${List.flatMap(list)(x => Cons(x, Cons(x, Nil)))}")
+
+    println(s"filterViaFlatMap : ${List.filterViaFlatMap(list)(_ % 2 == 1)}")
+
+    println(s"zip : ${List.zip(list, list3)}")
+    println(s"zipWidth : ${List.zipWidth(list, list3)((x, y) => x+ y)}")
+
+    val subA = List(1,2)
+    val subB = List(1,3)
+    val subC = List(3,4,5)
+    val subD = List(1,4,5)
+
+    println(s"hasSubsequenceA : ${List.hasSubsequence(list, subA)}")
+    println(s"hasSubsequenceB : ${List.hasSubsequence(list, subB)}")
+    println(s"hasSubsequenceC : ${List.hasSubsequence(list, subC)}")
+    println(s"hasSubsequenceD : ${List.hasSubsequence(list, subD)}")
+
+
   }
 
   sealed trait List[+A]
@@ -163,6 +178,35 @@ object Main {
 
     def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] =
       foldRight(map(as)(f), List[B]())((listA, listB) => appendViaFoldRight(listA, listB))
+
+    def filterViaFlatMap[A](as: List[A])(f: A => Boolean): List[A] =
+      flatMap(as)(a => if (f(a)) List(a) else Nil)
+
+    def zip(listA: List[Int], listB: List[Int]): List[Int] = (listA, listB) match {
+      case (_, Nil) => Nil
+      case (Nil, _) => Nil
+      case (Cons(aHead, aTail), Cons(bHead, bTail)) => Cons(aHead + bHead, zip(aTail, bTail))
+    }
+
+    def zipWidth[A](listA: List[A], listB: List[A])(f:(A, A) => A): List[A] = (listA, listB) match {
+      case (_, Nil) => Nil
+      case (Nil, _) => Nil
+      case (Cons(aHead, aTail), Cons(bHead, bTail)) => Cons(f(aHead, bHead), zipWidth(aTail, bTail)(f))
+    }
+
+    def hasSubsequence[A](sup: List[A], sub: List[A], hasFirst : Boolean = false) : Boolean = (sup, sub, hasFirst) match {
+      case (Nil, Nil, true) => true
+      case (Nil, _, _) => false
+      case (_, Nil, true) => true
+      case (Cons(supHead, supTail), Cons(subHead, subTail), true) =>
+        if(supHead == subHead) hasSubsequence(supTail, subTail, true)
+        else false
+      case (Cons(supHead, supTail), Cons(subHead, subTail), false) => {
+        if(supHead == subHead) hasSubsequence(supTail, subTail, true)
+        else hasSubsequence(supTail, Cons(subHead, subTail), false)
+      }
+    }
+
   }
 
 
