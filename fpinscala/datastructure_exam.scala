@@ -3,8 +3,8 @@ object Main {
 
     val list = List(1, 2, 3, 4, 5)
     val list2 = List(1.0, 2.0, 3.0, 4.0, 5.0)
+    val list3 = List(6, 7, 8, 9, 10)
 
-    println(s"dropWhile2 : ${List.dropWhile2(list)(x => x < 3)}")
     println(s"tail : ${List.getTail(list)}")
     println(s"head : ${List.setHead(9, list)}")
     println(s"drop : ${List.drop(2, list)}")
@@ -22,6 +22,31 @@ object Main {
     println(s"map2 : ${List.map(list2)((x: Double) => x.toString)}")
 
     println(s"filter : ${List.filter(list)((x: Int) => x % 2 == 0)}")
+    println(s"foldRight : ${List.foldRight(List(1, 2, 3), List[Int]())(Cons(_, _))}")
+    println(s"foldLeft : ${List.foldLeft(List[Int](), List(1, 2, 3))((x, y) => Cons(y, x))}")
+    println(s"foldRightViaLeft : ${List.foldRightViaFoldLeft(List(1, 2, 3), List[Int]())(Cons(_, _))}")
+    println(s"foldRightViaFoldLeft_1 : ${List.foldRightViaFoldLeft_1(List(1, 2, 3), List[Int]())(Cons(_, _))}")
+    println(s"appendViaFoldRight : ${List.appendViaFoldRight(List(1, 2, 3), List(4, 5, 6))}")
+
+    println(s"plus1ViaFoldRight : ${List.plus1ViaFoldRight(list)}")
+    println(s"plus1ViaFoldLeft : ${List.plus1ViaFoldLeft(list)}")
+
+    println(s"floatMap : ${List.flatMap(list)(x => Cons(x, Cons(x, Nil)))}")
+
+    println(s"filterViaFlatMap : ${List.filterViaFlatMap(list)(_ % 2 == 1)}")
+
+    println(s"zip : ${List.zip(list, list3)}")
+    println(s"zipWidth : ${List.zipWidth(list, list3)((x, y) => x+ y)}")
+
+    val subA = List(1,2)
+    val subB = List(1,3)
+    val subC = List(3,4,5)
+    val subD = List(1,4,5)
+
+    println(s"hasSubsequenceA : ${List.hasSubsequence(list, subA)}")
+    println(s"hasSubsequenceB : ${List.hasSubsequence(list, subB)}")
+    println(s"hasSubsequenceC : ${List.hasSubsequence(list, subC)}")
+    println(s"hasSubsequenceD : ${List.hasSubsequence(list, subD)}")
   }
 
   sealed trait List[+A]
@@ -97,21 +122,40 @@ object Main {
       // Todo : foldLeft를 구현
     }
 
-    def sum3(ns: List[Int]) =
+    def sum3(ns: List[Int]) = {
     // Todo : foldLeft를 이용한 sum 구현
-      foldLeft(ns, 0)((y, x) => x + y)
+    }
 
     def product3(ns: List[Double]) = {
       // Todo : foldLeft를 이용한 product를 구현
     }
-      foldLeft(ns, 1.0)(_ * _)
 
-    def plus1(ns: List[Int]): List[Int] = ns match {
+    def plus1 ... {
       // Todo : List의 각 요소값에 1을 더하는함수
     }
 
-    def doubleToString(ns: List[Double]): List[String] = ns match {
+    def doubleToString ... {
       // Todo : List의 각 요소를 String으로 변환하는 함수
+    }
+    
+    def reverse ... {
+      // Todo : List를 역으로 반환하는 함수 (List(1,2,3) = List(3,2,1) )
+    }
+    
+    def foldRightViaFoldLeft ... = {
+      // Todo : foldLeft를 이용한 foldRight
+    }
+    
+    def foldLeftViaFoldRight ... = {
+      // Todo : foldRight를 이용한 foldLeft
+    }
+    
+    def appendViaFoldRight ... = {
+      // Todo : List 2개를 입력받아 이어주는 함수 (List(1,2,3) + List(4,5,6) = List(1,2,3,4,5,6) )
+    }
+    
+    def concat ... = {
+      // Todo : List의 List를 하나의 List로 반환하는 함수 ( List(LIst(1), List(2), List(3,4)) = List(1,2,3,4) )
     }
 
     def map[A, B](as: List[A])(f: A => B): List[B] = as match {
@@ -123,8 +167,26 @@ object Main {
     }
 
     def flatMap[A, B](as: List[A])(f: A => List[B]): List[B] = {
-      // Todo
-      foldRight(map(as)(f), Nil)((x, y) => Cons(x, y))
+      // Todo : List A의 요소 하나하나를 List[B] 로 만들고 전체를 하나의 리스트로 만드는 함수
+    }
+    
+    def filterViaFlatMap ... = {
+      // Todo : flatMap 을 이용한 filter 함수 
+    }
+
+    def zip ... {
+      // Todo : ListA 와 ListB를 입력받아 각 요소의 Index끼리의 합을 만드는 함수. 길이가 다를 경우 짧은 List를 기준.
+      // List(1,2,3) List(4,5,6) = List(5,7,9)
+    }
+
+    @tailrec
+    def zipWidth ... {
+      //Todo : Zip 을 일반화한 함수.
+    }
+
+    @tailrec
+    def hasSubsequence ... {
+      // Todo : List B가 ListA 의 서브 시퀀스인지 검사하는 함수.
     }
 
   }
