@@ -21,3 +21,4 @@
 
 ## 진행상황
 [위키페이지](https://github.com/funfunStudy/study/wiki)
+[FacebookGroup](https://www.facebook.com/groups/1189616354467814)
