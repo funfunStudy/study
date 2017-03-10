@@ -1,20 +1,17 @@
 object LookAndSay {
     @JvmStatic
     fun main(args: Array<String>) {
-        generateSequence(listOf(1L)) { getValue(it) }
-                .take(40)
-                .last()
-                .forEach(::print)
+        generateSequence(listOf(1)) { getValue(it) }
+                .take(100)
     }
 
-    fun getValue(list: List<Long>): List<Long> {
+    fun getValue(list: List<Int>): List<Int> {
         val size = list.takeWhile { it == list.first() }.count()
         if (list.size == size) {
-            return listOf(list.first(), size.toLong())
+            return listOf(list.first(), size)
         } else {
-            return listOf(list.first(), size.toLong())
+            return listOf(list.first(), size)
                     .plus(getValue(list.drop(size)))
         }
-
     }
 }
