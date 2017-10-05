@@ -1,6 +1,6 @@
 # FunctionalPrograming Study
 ## 목적
-* 기존 oop 관점에서 벗어나 function 패러다임 경험 및 공부.
+* 기존 oop 관점에서 벗어나 functional 패러다임 경험 및 공부.
 * 다양한 Functional 언어의 특성들을 경험하고 이해.
 * pair programming을 통한 협업능력 향상 및 사고력 향상
  
@@ -14,7 +14,7 @@
 
 ## 시간 및 장소
 * 매주 화요일 (8시 ~ 10시 반)스터디를 기본으로 함.
-* 장소는 강남토즈(10번 출구 방향)
+* 장소는 레진엔터테인먼트
 
 ## 스터디 신청 및 연락처
 * myeonginwoo@gmail.com
