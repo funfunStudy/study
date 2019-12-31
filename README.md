@@ -17,6 +17,7 @@
 * 장소는 레진엔터테인먼트
 
 ## 스터디 신청 및 연락처
+* wtower123@gmail.com
 * myeonginwoo@gmail.com
 
 ## 진행상황
